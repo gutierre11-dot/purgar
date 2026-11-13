@@ -1,0 +1,47 @@
+purgar 0.2.0 — limpeza de cache e arquivos temporários (Linux)
+
+USO:
+    purgar                                      Abre a interface TUI
+    purgar scan [--json] [--detalhes] [--categoria ID]  Analisa as categorias
+    purgar clean <ID>... [opções]              Limpa uma ou mais categorias
+    purgar clean --todos-basicos [opções]      Limpa todas as categorias básicas
+    purgar lista [--json]                      Lista as categorias disponíveis
+    purgar config [--json]                     Mostra configuração e histórico
+    purgar --version | -V                      Mostra a versão
+    purgar --help | -h                         Mostra esta ajuda
+
+OPÇÕES DE clean:
+    --sim, --yes, -y     Não pede confirmação (obrigatório sem TTY)
+    --dry-run, -n        Apenas analisa e mostra o que seria removido
+    --json               Saída em JSON
+    --lixeira            Força o modo lixeira nesta execução
+    --sem-lixeira        Desativa o modo lixeira nesta execução
+    --todos-basicos      Limpa todas as categorias de nível básico
+
+CÓDIGOS DE SAÍDA:
+    0 sucesso   1 falhas   2 uso inválido   130 não confirmado
+
+ARQUIVOS:
+    ~/.config/purgar/config.json
+    ~/.local/share/purgar/historico.jsonl
+
+CATEGORIAS:
+  Básico   cache_apps         Cache de aplicativos
+  Básico   cache_navegadores  Cache de navegadores
+  Básico   lixeira            Lixeira
+  Básico   miniaturas         Miniaturas de imagens
+  Básico   cache_dev          Cache de desenvolvimento
+  Básico   logs_usuario       Logs de aplicativos
+  Básico   downloads          Pasta Downloads (análise) [análise]
+  Avançado logs_sistema       Logs do sistema [admin]
+  Avançado journal_sistema    Journal do sistema [admin]
+  Avançado cache_sistema      Cache de pacotes do sistema [admin]
+  Avançado tmp_antigos        Arquivos temporários antigos [admin]
+  Avançado dnf_cache          Cache do DNF [admin]
+  Avançado flatpak_cache      Cache do Flatpak
+  Avançado flatpak_unused     Runtimes não utilizados do Flatpak
+  Avançado coredumps          Despejos de memória (coredumps) [admin]
+  Avançado docker_cache       Cache do Docker [admin]
+  Avançado vscode_cache       Cache do VS Code
+
+Segurança: caminhos personalizados são validados; em modo lixeira os itens vão para a lixeira do freedesktop; ações administrativas usam pkexec.

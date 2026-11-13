@@ -1,0 +1,18 @@
+NÍVEL     ID                 CATEGORIA                           OBS
+Básico    cache_apps         Cache de aplicativos                
+Básico    cache_navegadores  Cache de navegadores                
+Básico    lixeira            Lixeira                             
+Básico    miniaturas         Miniaturas de imagens               
+Básico    cache_dev          Cache de desenvolvimento            
+Básico    logs_usuario       Logs de aplicativos                 
+Básico    downloads          Pasta Downloads (análise)           somente análise
+Avançado  logs_sistema       Logs do sistema                     admin
+Avançado  journal_sistema    Journal do sistema                  admin
+Avançado  cache_sistema      Cache de pacotes do sistema         admin
+Avançado  tmp_antigos        Arquivos temporários antigos        admin
+Avançado  dnf_cache          Cache do DNF                        admin
+Avançado  flatpak_cache      Cache do Flatpak                    
+Avançado  flatpak_unused     Runtimes não utilizados do Flatpak  
+Avançado  coredumps          Despejos de memória (coredumps)     admin
+Avançado  docker_cache       Cache do Docker                     admin
+Avançado  vscode_cache       Cache do VS Code                    

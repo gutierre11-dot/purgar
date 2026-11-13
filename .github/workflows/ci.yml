@@ -1,0 +1,69 @@
+name: CI
+
+# Toolchain estável do Rust; a MSRV do projeto é 1.95 (exigida por sysinfo 0.40.3).
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+
+jobs:
+  fmt:
+    name: Formatação
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Instalar Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - name: cargo fmt
+        run: cargo fmt --all --check
+
+  clippy:
+    name: Clippy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Instalar Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      - name: Cache do Cargo
+        uses: Swatinem/rust-cache@v2
+      - name: cargo clippy
+        run: cargo clippy --all-targets -- -D warnings
+
+  test:
+    name: Testes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Instalar Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Cache do Cargo
+        uses: Swatinem/rust-cache@v2
+      - name: cargo test
+        run: cargo test --all-targets
+
+  build:
+    name: Build de release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Instalar Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Cache do Cargo
+        uses: Swatinem/rust-cache@v2
+      - name: cargo build --release
+        run: cargo build --release

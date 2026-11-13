@@ -1,0 +1,5 @@
+AVISO: modo lixeira desativado — os itens serão removidos PERMANENTEMENTE.
+       Use --lixeira para mover para a lixeira (reversível).
+[dry-run] Miniaturas de imagens (miniaturas)
+    - Conteúdo de /home/gutierredesouza/.cache/thumbnails
+    2 item(ns) / 1,1 MB

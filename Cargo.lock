@@ -1151,7 +1151,7 @@ dependencies = [
 
 [[package]]
 name = "purgar"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "anyhow",
  "chrono",
@@ -1163,7 +1163,7 @@ dependencies = [
  "serde",
  "serde_json",
  "sysinfo",
- "thiserror 2.0.21",
+ "unicode-width",
  "walkdir",
 ]
 

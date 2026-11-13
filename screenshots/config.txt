@@ -1,0 +1,9 @@
+Arquivo de configuração : /home/gutierredesouza/.config/purgar/config.json
+Arquivo de histórico    : /home/gutierredesouza/.local/share/purgar/historico.jsonl
+Modo lixeira            : sim
+Dias para /tmp          : 8
+Dias para logs          : 30
+Máximo de registros     : 500
+Apagar dados do Flatpak : não
+Caminhos personalizados : 0
+Registros no histórico  : 4

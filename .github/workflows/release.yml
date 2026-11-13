@@ -1,0 +1,58 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  create-release:
+    name: Criar GitHub Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Criar release a partir do CHANGELOG
+        uses: taiki-e/create-gh-release-action@v1
+        with:
+          changelog: CHANGELOG.md
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  upload-assets:
+    name: Binário ${{ matrix.target }}
+    needs: create-release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Build nativo.
+          - target: x86_64-unknown-linux-gnu
+            build-tool: cargo
+          # Cross-compilação: a action instala o cross automaticamente quando
+          # ele não está disponível no runner.
+          - target: aarch64-unknown-linux-gnu
+            build-tool: cross
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Instalar Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Build e upload do tarball
+        uses: taiki-e/upload-rust-binary-action@v1
+        with:
+          bin: purgar
+          target: ${{ matrix.target }}
+          build-tool: ${{ matrix.build-tool }}
+          archive: purgar-$tag-$target
+          tar: unix
+          include: LICENSE,README.md,CHANGELOG.md
+          checksum: sha256
+          token: ${{ secrets.GITHUB_TOKEN }}

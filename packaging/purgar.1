@@ -1,0 +1,301 @@
+.\" Man page do purgar.
+.TH PURGAR 1 "13 de novembro de 2026" "purgar 0.2.0" "Manual do usuário"
+.SH NAME
+purgar \- limpador de cache e arquivos temporários para Linux
+.SH SYNOPSIS
+.nf
+.na
+purgar
+purgar scan [\-\-json] [\-\-detalhes] [\-\-categoria ID]
+purgar clean ID... | \-\-todos\-basicos [\-\-sim|\-\-yes] [\-\-dry\-run] [\-\-json] [\-\-lixeira|\-\-sem\-lixeira]
+purgar lista [\-\-json]
+purgar config [\-\-json]
+purgar \-\-version | \-V
+purgar \-\-help | \-h
+.ad
+.fi
+.SH DESCRIPTION
+.B purgar
+encontra e remove cache de aplicativos e navegadores, lixeira, miniaturas,
+caches de desenvolvimento, logs antigos, arquivos temporários, coredumps e
+caches de contêineres e do gerenciador de pacotes, liberando espaço em disco
+em sistemas Linux.
+.PP
+A ferramenta tem duas interfaces: uma TUI (interface de terminal) interativa,
+aberta por
+.B purgar
+sem argumentos, e uma CLI (interface de linha de comando) com os subcomandos
+.B scan,
+.B clean,
+.B lista
+e
+.BR config .
+.PP
+A análise sempre acontece antes da limpeza: o usuário vê o que será removido e
+confirma a operação. Nada é apagado sem confirmação, exceto quando
+.B \-\-sim
+é usado de forma explícita.
+.PP
+O programa é totalmente em português do Brasil e detecta o gerenciador de
+pacotes disponível (dnf, apt, pacman ou zypper) para habilitar as categorias
+correspondentes.
+.SH COMMANDS
+.TP
+.B purgar
+Sem subcomando, abre a TUI e exige um terminal interativo. Em ambiente sem TTY,
+orienta a usar
+.B purgar scan
+ou
+.B purgar \-\-help
+e termina sem quebrar.
+.TP
+.B scan
+Analisa as categorias e mostra uma tabela com categoria, id, tamanho, número de
+itens e indicação das categorias que exigem administrador. Não remove nada.
+.TP
+.B clean
+Limpa uma ou mais categorias informadas por id ou, com
+.BR \-\-todos\-basicos ,
+todas as categorias de nível básico que não são somente de análise.
+Em TTY, pede confirmação interativa (s/N). Em ambiente não interativo, exige
+.BR \-\-sim .
+.TP
+.B lista
+Lista as categorias disponíveis, com id, nome, nível e indicação de exigência
+de administrador.
+.TP
+.B config
+Mostra os caminhos dos arquivos de configuração e de histórico, os valores
+atuais e a quantidade de registros no histórico.
+.SH OPTIONS
+.TP
+.B \-\-json
+Emite a saída em JSON. Válido para
+.BR scan ,
+.BR clean ,
+.B lista
+e
+.BR config .
+.TP
+.B \-\-detalhes
+Com
+.BR scan ,
+lista o detalhamento por alvo de cada categoria.
+.TP
+.BI "\-\-categoria " ID
+Com
+.BR scan ,
+filtra a análise por uma única categoria.
+.TP
+.B \-\-todos\-basicos
+Com
+.BR clean ,
+seleciona todas as categorias de nível básico não informativas.
+.TP
+.BR \-\-sim ", " \-\-yes
+Confirma a limpeza sem perguntar. Obrigatório em ambiente não interativo.
+.TP
+.B \-\-dry\-run
+Analisa e lista o que seria removido, sem apagar nada.
+.TP
+.B \-\-lixeira
+Força o uso da lixeira nesta execução, sobrescrevendo a configuração.
+.TP
+.B \-\-sem\-lixeira
+Força a remoção definitiva nesta execução, sobrescrevendo a configuração.
+.TP
+.BR \-h ", " \-\-help
+Mostra a ajuda e termina.
+.TP
+.BR \-V ", " \-\-version
+Mostra a versão e termina.
+.SH CATEGORIES
+Os ids abaixo são aceitos por
+.BR clean ,
+por
+.B \-\-categoria
+e pela TUI. Categorias marcadas como "admin" usam pkexec/polkit.
+.TP
+.B cache_apps
+Nível básico. Esvazia o cache de aplicativos do usuário, exceto navegadores,
+caches de desenvolvimento, miniaturas e Flatpak/DNF.
+.TP
+.B cache_navegadores
+Nível básico. Cache de Firefox, Chrome, Chromium, Brave, Edge, Vivaldi, Opera,
+Zen, LibreWolf e Floorp, incluindo diretórios em ~/.cache, perfis e Flatpak.
+.TP
+.B lixeira
+Nível básico. Esvazia a lixeira do usuário.
+.TP
+.B miniaturas
+Nível básico. Cache de miniaturas.
+.TP
+.B cache_dev
+Nível básico. Caches de npm, pip, Yarn, Composer, Cargo, Go, Gradle, Maven,
+Deno e Bun.
+.TP
+.B logs_usuario
+Nível básico. Journal do usuário, mantendo 7 dias.
+.TP
+.B downloads
+Nível básico. Pasta Downloads, somente para análise. Nada é removido.
+.TP
+.B logs_sistema
+Nível avançado, admin. Logs com mais de 30 dias em /var/log.
+.TP
+.B journal_sistema
+Nível avançado, admin. Journal do sistema, mantendo 7 dias.
+.TP
+.B cache_sistema
+Nível avançado, admin. Cache do gerenciador de pacotes detectado: dnf, apt,
+pacman ou zypper.
+.TP
+.B tmp_antigos
+Nível avançado, admin. Arquivos antigos em /tmp e /var/tmp, preservando sockets
+e diretórios ativos.
+.TP
+.B dnf_cache
+Nível avançado, admin. Cache do DNF.
+.TP
+.B apt_cache
+Nível avançado, admin. Cache do APT (Debian/Ubuntu).
+.TP
+.B flatpak_cache
+Nível avançado. Cache do Flatpak.
+.TP
+.B flatpak_unused
+Nível avançado. Runtimes do Flatpak não utilizados.
+.TP
+.B coredumps
+Nível avançado, admin. Coredumps do sistema.
+.TP
+.B docker_cache
+Nível avançado, admin. Cache do Docker (docker system prune -f).
+.TP
+.B vscode_cache
+Nível avançado. Cache do VS Code.
+.TP
+.B jetbrains_cache
+Nível avançado. Caches das IDEs JetBrains.
+.TP
+.B custom
+Nível avançado. Caminhos personalizados, presente somente quando configurado.
+.PP
+Categorias condicionais só aparecem quando a ferramenta correspondente está
+instalada ou quando há caminhos personalizados configurados.
+.SH FILES
+.TP
+.I ~/.config/purgar/config.json
+Configuração do usuário. Quando XDG_CONFIG_HOME está definida, o caminho base é
+$XDG_CONFIG_HOME/purgar/config.json.
+.TP
+.I ~/.local/share/purgar/historico.jsonl
+Histórico de limpezas em JSON Lines, com os campos ts, categoria, bytes,
+movidos e erros. Quando XDG_DATA_HOME está definida, o caminho base é
+$XDG_DATA_HOME/purgar/historico.jsonl.
+.TP
+.I ~/.cache
+Diretório analisado pelas categorias de cache de aplicativos, navegadores e
+desenvolvimento.
+.TP
+.I /tmp " e " /var/tmp
+Diretórios analisados pela categoria tmp_antigos.
+.TP
+.I /var/log
+Diretório analisado pela categoria logs_sistema.
+.SH ENVIRONMENT
+.TP
+.B HOME
+Diretório do usuário, usado para calcular os caminhos padrão e para validar
+caminhos personalizados.
+.TP
+.B XDG_CONFIG_HOME
+Base do arquivo de configuração. Padrão: ~/.config.
+.TP
+.B XDG_DATA_HOME
+Base do arquivo de histórico. Padrão: ~/.local/share.
+.TP
+.B DISPLAY ", " WAYLAND_DISPLAY
+Necessárias para que o agente polkit exiba o diálogo de autenticação das ações
+administrativas.
+.TP
+.B PATH
+Usado para localizar ferramentas externas como pkexec, journalctl, dnf, apt,
+pacman, zypper, docker, flatpak e snap.
+.SH "EXIT STATUS"
+.TP
+.B 0
+Sucesso.
+.TP
+.B 1
+Falhas ou erros durante a limpeza.
+.TP
+.B 2
+Uso inválido, argumentos incorretos ou operação recusada.
+.TP
+.B 130
+Limpeza não confirmada ou cancelada pelo usuário.
+.SH SECURITY
+.B purgar
+é uma ferramenta destrutiva por natureza. As garantias implementadas são:
+.IP \(bu 2
+A varredura interna de diretórios nunca segue symlinks. Diretórios-raiz
+simbólicos são resolvidos para validação, ou seja, a categoria só é limpa
+depois que o caminho real é validado.
+.IP \(bu 2
+Caminhos personalizados são validados e rejeitam /, /usr, /etc, /home, /root,
+/var, /boot, /dev, /proc, /sys, /run, /bin, /lib*, /opt, /srv, /media, /mnt,
+/tmp, /var/tmp, a própria home e caminhos rasos demais. O caminho precisa
+existir.
+.IP \(bu 2
+O modo lixeira segue a freedesktop.org Trash spec, com Path= em URL-encoding e
+o arquivo .trashinfo criado antes do move. Se não for possível mover (por
+exemplo, por estar em outro sistema de arquivos), o programa tenta cópia
+seguida de remoção verificada; nunca apaga silenciosamente.
+.IP \(bu 2
+A limpeza de /tmp como usuário remove apenas arquivos e symlinks antigos do
+próprio usuário; nunca remove diretórios com conteúdo. Preserva
+\&.X11-unix, \&.ICE-unix, \&.XIM-unix, \&.font-unix, \&.Test-unix, \&.dbus,
+systemd-private-* e ssh-*.
+.IP \(bu 2
+A limpeza de cache de navegadores é bloqueada enquanto houver navegador aberto,
+tanto na TUI quanto no CLI.
+.IP \(bu 2
+O CLI exige confirmação interativa, ou a flag explícita \-\-sim em ambiente não
+interativo.
+.IP \(bu 2
+Ações administrativas usam pkexec/polkit. Sem sessão gráfica, a operação falha
+com uma mensagem clara, sem assumir privilégios por conta própria.
+.IP \(bu 2
+A TUI restaura o terminal mesmo em caso de erro ou panic. A tela de progresso
+pode ser cancelada com Esc e Ctrl+C sai do programa.
+.IP \(bu 2
+O desinstalador protege pacotes essenciais em RPM, Flatpak e Snap.
+.SH EXAMPLES
+.nf
+.na
+purgar
+purgar scan
+purgar scan \-\-categoria cache_navegadores \-\-detalhes
+purgar scan \-\-json
+purgar clean lixeira
+purgar clean cache_apps cache_navegadores
+purgar clean \-\-todos\-basicos \-\-sim
+purgar clean cache_dev \-\-dry\-run
+purgar clean flatpak_cache \-\-lixeira \-\-json
+purgar lista
+purgar config \-\-json
+.ad
+.fi
+.SH "SEE ALSO"
+.BR journalctl (1),
+.BR pkexec (1),
+.BR dnf (8),
+.BR apt (8),
+.BR pacman (8),
+.BR docker (1),
+.BR flatpak (1)
+.PP
+Página do projeto: https://github.com/gutierre11-dot/purgar
+.SH LICENSE
+Licença MIT. Consulte o arquivo LICENSE distribuído com o projeto.

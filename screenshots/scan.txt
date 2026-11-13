@@ -1,0 +1,44 @@
+CATEGORIA                           ID                    TAMANHO    ITENS  OBS
+──────────────────────────────────────────────────────────────────────────────
+Cache de aplicativos                cache_apps           989,5 MB       73  
+    • Conteúdo de /home/gutierredesouza/.cache — 989,5 MB
+Cache de navegadores                cache_navegadores      1,0 GB        1  
+    • Conteúdo de /home/gutierredesouza/.cache/mozilla — 1,0 GB
+Lixeira                             lixeira                   0 B        0  
+Miniaturas de imagens               miniaturas             1,1 MB        2  
+    • Conteúdo de /home/gutierredesouza/.cache/thumbnails — 1,1 MB
+Cache de desenvolvimento            cache_dev            384,3 MB        6  
+    • Conteúdo de /home/gutierredesouza/.npm — 60,2 KB
+    • Conteúdo de /home/gutierredesouza/.cargo/registry — 384,2 MB
+Logs de aplicativos                 logs_usuario              0 B        0  
+    • journalctl --user --vacuum-time=7d — sob demanda
+Pasta Downloads (análise)           downloads              8,7 GB        1  análise
+    • Medição (não remove) — /home/gutierredesouza/Downloads — 8,7 GB
+Logs do sistema                     logs_sistema              0 B        0  admin
+    • [root] sh -c find /var/log -xdev -type f \( -name '*.gz' -o -name '*.[0-9]' -o -name '*.old' \) -mtime +30 -delete — requer administrador
+Journal do sistema                  journal_sistema           0 B        0  admin
+    • [root] journalctl --vacuum-time=7d — requer administrador
+Cache de pacotes do sistema         cache_sistema             0 B        0  admin
+    • [root] dnf clean all — requer administrador
+    • [root] sh -c rm -rf /var/cache/PackageKit /var/cache/fontconfig — requer administrador
+Arquivos temporários antigos        tmp_antigos             719 B        2  admin
+    • Arquivos > 8 dias em /var/tmp, /tmp (root) — 719 B (requer administrador)
+Cache do DNF                        dnf_cache                 0 B        0  admin
+    • [root] dnf clean all — requer administrador
+Cache do Flatpak                    flatpak_cache          7,6 MB        2  
+    • Conteúdo de /home/gutierredesouza/.cache/flatpak — 7,6 MB
+Runtimes não utilizados do Flatpak  flatpak_unused            0 B        0  
+    • flatpak uninstall --unused -y — sob demanda
+Despejos de memória (coredumps)     coredumps                 0 B        0  admin
+    • Arquivos > 7 dias em /var/lib/systemd/coredump (root) — 0 B (requer administrador)
+Cache do Docker                     docker_cache              0 B        0  admin
+    • [root] docker system prune -f — requer administrador
+Cache do VS Code                    vscode_cache         106,9 MB       26  
+    • Conteúdo de /home/gutierredesouza/.config/Code/Cache — 83,6 MB
+    • Conteúdo de /home/gutierredesouza/.config/Code/CachedData — 14,5 MB
+    • Conteúdo de /home/gutierredesouza/.config/Code/GPUCache — 7,1 MB
+    • Conteúdo de /home/gutierredesouza/.config/Code/Code Cache — 5,8 KB
+    • Conteúdo de /home/gutierredesouza/.config/Code/logs — 1,7 MB
+──────────────────────────────────────────────────────────────────────────────
+TOTAL LIMPÁVEL                                             2,5 GB
+Somente análise (não limpo)                                8,7 GB

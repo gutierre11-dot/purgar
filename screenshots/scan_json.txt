@@ -1,0 +1,230 @@
+{
+  "categorias": [
+    {
+      "avisos": [],
+      "bytes": 1037585493,
+      "detalhes": [
+        "Conteúdo de /home/gutierredesouza/.cache — 989,5 MB"
+      ],
+      "id": "cache_apps",
+      "informativo": false,
+      "itens": 73,
+      "nivel": "Básico",
+      "nome": "Cache de aplicativos",
+      "requer_admin": false
+    },
+    {
+      "avisos": [],
+      "bytes": 1093668675,
+      "detalhes": [
+        "Conteúdo de /home/gutierredesouza/.cache/mozilla — 1,0 GB"
+      ],
+      "id": "cache_navegadores",
+      "informativo": false,
+      "itens": 1,
+      "nivel": "Básico",
+      "nome": "Cache de navegadores",
+      "requer_admin": false
+    },
+    {
+      "avisos": [],
+      "bytes": 0,
+      "detalhes": [],
+      "id": "lixeira",
+      "informativo": false,
+      "itens": 0,
+      "nivel": "Básico",
+      "nome": "Lixeira",
+      "requer_admin": false
+    },
+    {
+      "avisos": [],
+      "bytes": 1110174,
+      "detalhes": [
+        "Conteúdo de /home/gutierredesouza/.cache/thumbnails — 1,1 MB"
+      ],
+      "id": "miniaturas",
+      "informativo": false,
+      "itens": 2,
+      "nivel": "Básico",
+      "nome": "Miniaturas de imagens",
+      "requer_admin": false
+    },
+    {
+      "avisos": [],
+      "bytes": 402944693,
+      "detalhes": [
+        "Conteúdo de /home/gutierredesouza/.npm — 60,2 KB",
+        "Conteúdo de /home/gutierredesouza/.cargo/registry — 384,2 MB"
+      ],
+      "id": "cache_dev",
+      "informativo": false,
+      "itens": 6,
+      "nivel": "Básico",
+      "nome": "Cache de desenvolvimento",
+      "requer_admin": false
+    },
+    {
+      "avisos": [],
+      "bytes": 0,
+      "detalhes": [
+        "journalctl --user --vacuum-time=7d — sob demanda"
+      ],
+      "id": "logs_usuario",
+      "informativo": false,
+      "itens": 0,
+      "nivel": "Básico",
+      "nome": "Logs de aplicativos",
+      "requer_admin": false
+    },
+    {
+      "avisos": [],
+      "bytes": 9315191735,
+      "detalhes": [
+        "Medição (não remove) — /home/gutierredesouza/Downloads — 8,7 GB"
+      ],
+      "id": "downloads",
+      "informativo": true,
+      "itens": 1,
+      "nivel": "Básico",
+      "nome": "Pasta Downloads (análise)",
+      "requer_admin": false
+    },
+    {
+      "avisos": [],
+      "bytes": 0,
+      "detalhes": [
+        "[root] sh -c find /var/log -xdev -type f \\( -name '*.gz' -o -name '*.[0-9]' -o -name '*.old' \\) -mtime +30 -delete — requer administrador"
+      ],
+      "id": "logs_sistema",
+      "informativo": false,
+      "itens": 0,
+      "nivel": "Avançado",
+      "nome": "Logs do sistema",
+      "requer_admin": true
+    },
+    {
+      "avisos": [],
+      "bytes": 0,
+      "detalhes": [
+        "[root] journalctl --vacuum-time=7d — requer administrador"
+      ],
+      "id": "journal_sistema",
+      "informativo": false,
+      "itens": 0,
+      "nivel": "Avançado",
+      "nome": "Journal do sistema",
+      "requer_admin": true
+    },
+    {
+      "avisos": [],
+      "bytes": 0,
+      "detalhes": [
+        "[root] dnf clean all — requer administrador",
+        "[root] sh -c rm -rf /var/cache/PackageKit /var/cache/fontconfig — requer administrador"
+      ],
+      "id": "cache_sistema",
+      "informativo": false,
+      "itens": 0,
+      "nivel": "Avançado",
+      "nome": "Cache de pacotes do sistema",
+      "requer_admin": true
+    },
+    {
+      "avisos": [],
+      "bytes": 719,
+      "detalhes": [
+        "Arquivos > 8 dias em /var/tmp, /tmp (root) — 719 B (requer administrador)"
+      ],
+      "id": "tmp_antigos",
+      "informativo": false,
+      "itens": 2,
+      "nivel": "Avançado",
+      "nome": "Arquivos temporários antigos",
+      "requer_admin": true
+    },
+    {
+      "avisos": [],
+      "bytes": 0,
+      "detalhes": [
+        "[root] dnf clean all — requer administrador"
+      ],
+      "id": "dnf_cache",
+      "informativo": false,
+      "itens": 0,
+      "nivel": "Avançado",
+      "nome": "Cache do DNF",
+      "requer_admin": true
+    },
+    {
+      "avisos": [],
+      "bytes": 7946293,
+      "detalhes": [
+        "Conteúdo de /home/gutierredesouza/.cache/flatpak — 7,6 MB"
+      ],
+      "id": "flatpak_cache",
+      "informativo": false,
+      "itens": 2,
+      "nivel": "Avançado",
+      "nome": "Cache do Flatpak",
+      "requer_admin": false
+    },
+    {
+      "avisos": [],
+      "bytes": 0,
+      "detalhes": [
+        "flatpak uninstall --unused -y — sob demanda"
+      ],
+      "id": "flatpak_unused",
+      "informativo": false,
+      "itens": 0,
+      "nivel": "Avançado",
+      "nome": "Runtimes não utilizados do Flatpak",
+      "requer_admin": false
+    },
+    {
+      "avisos": [],
+      "bytes": 0,
+      "detalhes": [
+        "Arquivos > 7 dias em /var/lib/systemd/coredump (root) — 0 B (requer administrador)"
+      ],
+      "id": "coredumps",
+      "informativo": false,
+      "itens": 0,
+      "nivel": "Avançado",
+      "nome": "Despejos de memória (coredumps)",
+      "requer_admin": true
+    },
+    {
+      "avisos": [],
+      "bytes": 0,
+      "detalhes": [
+        "[root] docker system prune -f — requer administrador"
+      ],
+      "id": "docker_cache",
+      "informativo": false,
+      "itens": 0,
+      "nivel": "Avançado",
+      "nome": "Cache do Docker",
+      "requer_admin": true
+    },
+    {
+      "avisos": [],
+      "bytes": 112083565,
+      "detalhes": [
+        "Conteúdo de /home/gutierredesouza/.config/Code/Cache — 83,6 MB",
+        "Conteúdo de /home/gutierredesouza/.config/Code/CachedData — 14,5 MB",
+        "Conteúdo de /home/gutierredesouza/.config/Code/GPUCache — 7,1 MB",
+        "Conteúdo de /home/gutierredesouza/.config/Code/Code Cache — 5,8 KB",
+        "Conteúdo de /home/gutierredesouza/.config/Code/logs — 1,7 MB"
+      ],
+      "id": "vscode_cache",
+      "informativo": false,
+      "itens": 26,
+      "nivel": "Avançado",
+      "nome": "Cache do VS Code",
+      "requer_admin": false
+    }
+  ],
+  "total_limpavel": 2655339612
+}
